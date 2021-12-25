@@ -14,3 +14,20 @@ xmlhttp.onreadystatechange = function () {
         document.querySelector(".answer").append(img);
     }
 }
+
+function get_joke_of_the_day() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        let joke = JSON.parse(xhttp.response)
+	    if (this.readyState == 4 && this.status == 200) {
+	     // Access the result here
+	     document.querySelector(".joke").textContent = joke.contents.jokes[0].joke.text;
+	 }
+    };
+    xhttp.open("GET", "https://api.jokes.one/jod?category=animal", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("X-JokesOne-Api-Secret", "YOUR API HERE");
+    xhttp.send();
+}
+
+get_joke_of_the_day()
